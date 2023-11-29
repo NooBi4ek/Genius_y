@@ -27,5 +27,6 @@ export default Button;
 
 const StyledButton = styled(MuiButton)(({ variant, size }) => ({
   ...variantStyles()[variant || 'outlined'],
-  background: 'linear-gradient(90deg, #ff7e4a 35%, rgba(255,74,139,1) 100%)',
+  backgroundColor:
+    'linear-gradient(90deg, #ff7e4a 35%, rgba(255,74,139,1) 100%)',
 }));

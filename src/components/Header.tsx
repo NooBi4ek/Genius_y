@@ -1,14 +1,17 @@
 import { FC } from 'react';
+import Button from './Button';
+import Container from './Container';
+
 import LogoSvg from './LogoSvg';
-import { Box, Container, Stack, Typography } from '@mui/material';
+
+import { Box, Stack, Typography } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import Button from './Button';
 
 const Header: FC = () => {
   return (
     <Box>
-      <Container sx={{ maxWidth: '1440px', width: '95%' }}>
+      <Container>
         <Stack
           sx={{
             flexDirection: 'row',

@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import LogoSvg from './LogoSvg';
 import LinkText from './LinkText';
+import Container from './Container';
 
-import { Box, Container, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
@@ -17,7 +18,7 @@ const Footer: FC = () => {
         color: '#fff',
       }}
     >
-      <Container sx={{ maxWidth: '1440px', width: '95%' }}>
+      <Container>
         <Stack
           sx={{
             flexDirection: 'row',

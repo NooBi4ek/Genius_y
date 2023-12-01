@@ -46,6 +46,7 @@ const Upcoming: FC = () => {
           flexDirection="row"
           gap="20px"
           mt="24px"
+          mb="71px"
         >
           {mock.map((cryptoEvents) => (
             <UpcomingCard

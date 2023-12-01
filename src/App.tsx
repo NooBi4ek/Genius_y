@@ -5,7 +5,7 @@ import './App.css';
 
 const App: FC = () => {
   return (
-    <Box sx={{ width: '100%', height: '100vh', backgroundColor: '#050810' }}>
+    <Box sx={{ width: '100%', height: '100%', backgroundColor: '#050810' }}>
       <MainLayout />
     </Box>
   );

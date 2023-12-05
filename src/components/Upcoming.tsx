@@ -1,40 +1,35 @@
-import { FC } from 'react';
-import Container from './Container';
+import { ChangeEventHandler, FC, useEffect, useState } from "react";
+import Container from "./Container";
+import { Box, Stack, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Box, Stack, Typography } from '@mui/material';
-import UpcomingCard from './UpcomingCard';
+import { getUpcomingData } from "../store/reducers/upcomingReducer";
+import { getUpcomingDataServer } from "../store/actions/upcomingActions";
 
-const mock = [
-  {
-    title: 'Crypto Summit 2025',
-    avatar:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1200.jpg',
-    finishDate: '2025-04-15T14:30:00.000Z',
-    raised: 2350000,
-    raisedCrpt: 'ETH',
-    tokensAllocation: 6500000,
-  },
-  {
-    title: 'DeFi Revolution Conference',
-    avatar:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1400.jpg',
-    finishDate: '2025-07-22T10:45:00.000Z',
-    raised: 3100000,
-    raisedCrpt: 'BTC',
-    tokensAllocation: 7200000,
-  },
-  {
-    title: 'NFT Innovation Expo',
-    avatar:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1600.jpg',
-    finishDate: '2025-11-10T16:15:00.000Z',
-    raised: 2700000,
-    raisedCrpt: 'ADA',
-    tokensAllocation: 7800000,
-  },
-];
+import UpcomingCard from "./UpcomingCard";
+import { COUNT_ELEMENT_PER_PAGE } from "./Browse";
+import StyledPagination from "./Browse";
+import Pagination from "./Pagination";
 
 const Upcoming: FC = () => {
+  const dispatch = useDispatch();
+  const upcomingData = useSelector(getUpcomingData);
+  const [page, SetPage] = useState(1);
+
+  const paginationStart =
+    page * COUNT_ELEMENT_PER_PAGE - COUNT_ELEMENT_PER_PAGE;
+  const paginationEnd = page * COUNT_ELEMENT_PER_PAGE;
+
+  const handlePaginationChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    SetPage(value);
+  };
+  useEffect(() => {
+    dispatch(getUpcomingDataServer());
+  }, []);
+
   return (
     <Box>
       <Container>
@@ -42,23 +37,23 @@ const Upcoming: FC = () => {
           Upcoming hot sales
         </Typography>
         <Stack
-          justifyContent="space-between"
           flexDirection="row"
+          flexWrap="wrap"
           gap="20px"
           mt="24px"
           mb="71px"
         >
-          {mock.map((cryptoEvents) => (
-            <UpcomingCard
-              avatar={cryptoEvents.avatar}
-              title={cryptoEvents.title}
-              timeOut={cryptoEvents.finishDate}
-              tokenType={cryptoEvents.raisedCrpt}
-              raisedTokens={cryptoEvents.raised}
-              allocationTokens={cryptoEvents.tokensAllocation}
-            />
-          ))}
+          {upcomingData
+            .slice(paginationStart, paginationEnd)
+            .map((cryptoEvent) => (
+              <UpcomingCard card={cryptoEvent} />
+            ))}
         </Stack>
+        <Pagination
+          count={Math.ceil(upcomingData.length / COUNT_ELEMENT_PER_PAGE)}
+          variant="outlined"
+          onChange={handlePaginationChange}
+        />
       </Container>
     </Box>
   );

@@ -1,5 +1,5 @@
 export const splitNumber = (number: number) => {
-  if (typeof number !== 'number') {
+  if (typeof number !== "number") {
     return number;
   }
   //   const arrNumber = Array.from(number.toString());
@@ -15,7 +15,7 @@ export const splitNumber = (number: number) => {
 
   const stringNumber = number.toString();
 
-  let result = '';
+  let result = "";
 
   for (let i = 0; i <= stringNumber.length - 1; i++) {
     result += stringNumber[i];
@@ -23,7 +23,7 @@ export const splitNumber = (number: number) => {
       (stringNumber.length - i - 1) % 3 === 0 &&
       i !== stringNumber.length - 1
     ) {
-      result += ' ';
+      result += " ";
     }
   }
   return result;

@@ -7,8 +7,15 @@ import LogoSvg from './LogoSvg';
 import { Box, Stack, Typography } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import { useDispatch } from 'react-redux';
+import { changeModalStatus } from '../store/actions/modalActions';
 
 const Header: FC = () => {
+  const dispatch = useDispatch();
+
+  const handleOpenModalClick = () => {
+    dispatch(changeModalStatus({ status: true, content: <div>1</div> }));
+  };
   return (
     <Box>
       <Container>
@@ -52,7 +59,12 @@ const Header: FC = () => {
               gap: '20px',
             }}
           >
-            <Button variant="contained" size="small" text="Connect Wallet" />
+            <Button
+              variant="contained"
+              size="small"
+              text="Connect Wallet"
+              onClick={handleOpenModalClick}
+            />
             <InstagramIcon />
             <TelegramIcon />
           </Box>

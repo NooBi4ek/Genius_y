@@ -1,10 +1,11 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { Button as MuiButton, styled } from '@mui/material';
 
 interface Props {
   variant: 'outlined' | 'contained' | 'text';
   size: 'small' | 'medium' | 'large';
   text: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const variantStyles = () => ({
@@ -15,9 +16,9 @@ const variantStyles = () => ({
   text: {},
 });
 
-const Button: FC<Props> = ({ variant, size, text }) => {
+const Button: FC<Props> = ({ variant, size, text, onClick }) => {
   return (
-    <StyledButton variant={variant} size={size}>
+    <StyledButton variant={variant} size={size} onClick={onClick}>
       {text}
     </StyledButton>
   );

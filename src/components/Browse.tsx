@@ -1,30 +1,30 @@
-import { Box, Container, Typography, Stack, Chip } from "@mui/material";
-import { FC, useEffect, useState } from "react";
-import BrowseCard from "./BrowseCard";
-import { useDispatch, useSelector } from "react-redux";
-import { getBrowseData } from "../store/reducers/browseReducer";
-import { getBrowseDataServer } from "../store/actions/browseActions";
-import { BrowseStatus } from "../models/BrowseItems";
-import Pagination from "./Pagination";
+import { Box, Container, Typography, Stack, Chip } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import BrowseCard from './BrowseCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBrowseData } from '../store/reducers/browseReducer';
+import { getBrowseDataServer } from '../store/actions/browseActions';
+import { BrowseStatus } from '../models/BrowseItems';
+import Pagination from './Pagination';
+import { COUNT_ELEMENT_PER_PAGE } from '../lib/constants/countElementPerPage';
 
-type ChipStatus = BrowseStatus | "";
+type ChipStatus = BrowseStatus | '';
 
 const chipItems = [
-  { id: 1, status: "All project", value: "" },
-  { id: 2, status: "Active", value: "active" },
-  { id: 3, status: "Upcoming", value: "upcoming" },
-  { id: 3, status: "Completed", value: "completed" },
+  { id: 1, status: 'All project', value: '' },
+  { id: 2, status: 'Active', value: 'active' },
+  { id: 3, status: 'Upcoming', value: 'upcoming' },
+  { id: 3, status: 'Completed', value: 'completed' },
 ];
-export const COUNT_ELEMENT_PER_PAGE = 6;
 
 const Browse: FC = () => {
   const dispatch = useDispatch();
   const browseData = useSelector(getBrowseData);
-  const [currentStatus, setCurrentStatus] = useState<ChipStatus>("");
+  const [currentStatus, setCurrentStatus] = useState<ChipStatus>('');
   const [page, setPage] = useState(1);
   const browseDataFilter = browseData.filter(
     (cryptoEvent) =>
-      cryptoEvent.status === currentStatus || currentStatus === ""
+      cryptoEvent.status === currentStatus || currentStatus === '',
   );
 
   const paginationStart =
@@ -42,7 +42,7 @@ const Browse: FC = () => {
 
   const handlePaginationChange = (
     event: React.ChangeEvent<unknown>,
-    value: number
+    value: number,
   ) => {
     setPage(value);
   };
@@ -61,10 +61,10 @@ const Browse: FC = () => {
                 sx={{
                   background:
                     status.value === currentStatus
-                      ? "linear-gradient(90deg, rgba(255,181,74,1) 0%, rgba(255,74,139,1) 100%)"
-                      : "#1B2335",
-                  color: "#fff",
-                  cursor: "pointer",
+                      ? 'linear-gradient(90deg, rgba(255,181,74,1) 0%, rgba(255,74,139,1) 100%)'
+                      : '#1B2335',
+                  color: '#fff',
+                  cursor: 'pointer',
                 }}
                 onClick={handleStatusClick(status.value as ChipStatus)}
               />

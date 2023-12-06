@@ -1,15 +1,14 @@
-import { ChangeEventHandler, FC, useEffect, useState } from "react";
-import Container from "./Container";
-import { Box, Stack, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useEffect, useState } from 'react';
+import Container from './Container';
+import { Box, Stack, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getUpcomingData } from "../store/reducers/upcomingReducer";
-import { getUpcomingDataServer } from "../store/actions/upcomingActions";
+import { getUpcomingData } from '../store/reducers/upcomingReducer';
+import { getUpcomingDataServer } from '../store/actions/upcomingActions';
 
-import UpcomingCard from "./UpcomingCard";
-import { COUNT_ELEMENT_PER_PAGE } from "./Browse";
-import StyledPagination from "./Browse";
-import Pagination from "./Pagination";
+import UpcomingCard from './UpcomingCard';
+import { COUNT_ELEMENT_PER_PAGE } from '../lib/constants/countElementPerPage';
+import Pagination from './Pagination';
 
 const Upcoming: FC = () => {
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const Upcoming: FC = () => {
 
   const handlePaginationChange = (
     event: React.ChangeEvent<unknown>,
-    value: number
+    value: number,
   ) => {
     SetPage(value);
   };

@@ -1,4 +1,5 @@
 export interface UpcomingItem {
+  id: number;
   avatar: string;
   title: string;
   finishDate: string | Date;

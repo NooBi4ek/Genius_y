@@ -9,12 +9,13 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { useDispatch } from 'react-redux';
 import { changeModalStatus } from '../store/actions/modalActions';
+import FormSignUp from '../form/FormSignUp';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
 
   const handleOpenModalClick = () => {
-    dispatch(changeModalStatus({ status: true, content: <div>1</div> }));
+    dispatch(changeModalStatus({ status: true, content: <FormSignUp /> }));
   };
   return (
     <Box>

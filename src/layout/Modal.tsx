@@ -1,15 +1,22 @@
 import { FC } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Stack, styled } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getModalContent,
   getModalStatus,
 } from '../store/reducers/modalReducer';
+import { changeModalStatus } from '../store/actions/modalActions';
 
 const Modal: FC = () => {
   const status = useSelector(getModalStatus);
   const content = useSelector(getModalContent);
+
+  const dispatch = useDispatch();
+
+  const handleCloseModalClick = () => {
+    dispatch(changeModalStatus({ status: false, content: null }));
+  };
 
   return (
     <Box
@@ -27,8 +34,12 @@ const Modal: FC = () => {
       }}
     >
       <ModalContent>
-        <CloseIcon />
-        <Stack>{content}</Stack>
+        <Stack justifyContent="flex-end" flexDirection="row">
+          <CloseIconMui onClick={handleCloseModalClick} />
+        </Stack>
+        <Stack justifyContent="center" padding="30px">
+          {content}
+        </Stack>
       </ModalContent>
     </Box>
   );
@@ -40,4 +51,13 @@ const ModalContent = styled(Box)({
   width: '436px',
   maxWidth: '95%',
   background: '#202740',
+  padding: '20px',
+  borderRadius: '10px',
+});
+
+const CloseIconMui = styled(CloseIcon)({
+  transition: '0.3s ease-in-out',
+  ':hover': {
+    color: '#fff',
+  },
 });

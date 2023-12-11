@@ -7,6 +7,7 @@ import { getBrowseDataServer } from '../store/actions/browseActions';
 import { BrowseStatus } from '../models/BrowseItems';
 import Pagination from './Pagination';
 import { COUNT_ELEMENT_PER_PAGE } from '../lib/constants/countElementPerPage';
+import EmptyCard from './EmptyCard';
 
 type ChipStatus = BrowseStatus | '';
 
@@ -14,7 +15,7 @@ const chipItems = [
   { id: 1, status: 'All project', value: '' },
   { id: 2, status: 'Active', value: 'active' },
   { id: 3, status: 'Upcoming', value: 'upcoming' },
-  { id: 3, status: 'Completed', value: 'completed' },
+  { id: 4, status: 'Completed', value: 'completed' },
 ];
 
 const Browse: FC = () => {
@@ -22,10 +23,17 @@ const Browse: FC = () => {
   const browseData = useSelector(getBrowseData);
   const [currentStatus, setCurrentStatus] = useState<ChipStatus>('');
   const [page, setPage] = useState(1);
+
   const browseDataFilter = browseData.filter(
     (cryptoEvent) =>
       cryptoEvent.status === currentStatus || currentStatus === '',
   );
+
+  const emptyCard = Array(3)
+    .fill(null)
+    .map((_, index) => (
+      <EmptyCard height="200px" text="Browse data is empty" key={index} />
+    ));
 
   const paginationStart =
     page * COUNT_ELEMENT_PER_PAGE - COUNT_ELEMENT_PER_PAGE;
@@ -48,7 +56,7 @@ const Browse: FC = () => {
   };
 
   return (
-    <Box>
+    <Box mt="71px">
       <Container>
         <Stack flexDirection="row" justifyContent="space-between">
           <Typography variant="h4" color="white">
@@ -58,6 +66,7 @@ const Browse: FC = () => {
             {chipItems.map((status) => (
               <Chip
                 label={status.status}
+                key={status.id}
                 sx={{
                   background:
                     status.value === currentStatus
@@ -72,11 +81,11 @@ const Browse: FC = () => {
           </Stack>
         </Stack>
         <Stack flexDirection="row" flexWrap="wrap" gap="20px" mt="24px">
-          {browseDataFilter
-            .slice(paginationStart, paginationEnd)
-            .map((cryptoEvents) => (
-              <BrowseCard card={cryptoEvents} />
-            ))}
+          {browseDataFilter.length
+            ? browseDataFilter
+                .slice(paginationStart, paginationEnd)
+                .map((cryptoEvents) => <BrowseCard card={cryptoEvents} />)
+            : emptyCard}
         </Stack>
         <Pagination
           count={Math.ceil(browseDataFilter.length / COUNT_ELEMENT_PER_PAGE)}
